@@ -1,0 +1,82 @@
+erDiagram
+    EMPLOYEE {
+        varchar fname "Nome"
+        char Mname "Nome do meio"
+        varchar Lname "Sobrenome"
+        char Ssn PK "Número segurança social"
+        date Bdate "Data nascimento"
+        varchar Address "Endereço"
+        char sex "Sexo"
+        decimal Salary "Salário"
+        char Super_ssn FK "SSN supervisor"
+        int Dno FK "Número departamento"
+    }
+    
+    DEPARTAMENT {
+        varchar Dname "Nome departamento"
+        int Dnumber PK "Número departamento"
+        char Mgr_ssn FK "SSN gerente"
+        date Mgr_start_date "Data início gerente"
+        date Dept_create_date "Data criação dept"
+    }
+    
+    PROJECT {
+        varchar Pname "Nome projeto"
+        int Pnumber PK "Número projeto"
+        varchar Plocation "Local projeto"
+        int Dnum FK "Número departamento"
+    }
+    
+    WORKS_ON {
+        char Essn FK "SSN funcionário"
+        int Pno FK "Número projeto"
+        decimal Hours "Horas trabalhadas"
+    }
+    
+    DEPENDENT {
+        char Essn FK "SSN funcionário"
+        varchar Dependent_name "Nome dependente"
+        char Sex "Sexo"
+        date Bdate "Data nascimento"
+        varchar Relationship "Relacionamento"
+    }
+    
+    DEP_LOCATIONS {
+        int Dnumber FK "Número departamento"
+        varchar Dlocation "Localização"
+    }
+
+    %% Relacionamentos principais
+    EMPLOYEE ||--o{ EMPLOYEE : "supervises"
+    EMPLOYEE }o--|| DEPARTAMENT : "belongs_to"
+    DEPARTAMENT ||--o{ PROJECT : "manages"
+    EMPLOYEE ||--o{ WORKS_ON : "participates"
+    PROJECT ||--o{ WORKS_ON : "involves"
+    EMPLOYEE ||--o{ DEPENDENT : "has"
+    DEPARTAMENT ||--o{ DEP_LOCATIONS : "located_at"
+    DEPARTAMENT ||--o| EMPLOYEE : "managed_by"
+
+    %% Cardinalidades e Descrições dos Relacionamentos:
+    %% 
+    %% 1. Employee → Employee (supervises): 1:N
+    %%    Um funcionário pode supervisionar vários outros funcionários
+    %%
+    %% 2. Employee → Department (belongs_to): N:1  
+    %%    Vários funcionários pertencem a um departamento
+    %%
+    %% 3. Department → Project (manages): 1:N
+    %%    Um departamento gerencia vários projetos
+    %%
+    %% 4. Employee ↔ Project (works_on): N:M
+    %%    Relacionamento muitos-para-muitos através da tabela works_on
+    %%    Um funcionário pode trabalhar em vários projetos
+    %%    Um projeto pode ter vários funcionários
+    %%
+    %% 5. Employee → Dependent (has): 1:N
+    %%    Um funcionário pode ter vários dependentes
+    %%
+    %% 6. Department → Dep_locations (located_at): 1:N
+    %%    Um departamento pode ter várias localizações
+    %%
+    %% 7. Department → Employee (managed_by): 1:1
+    %%    Um departamento é gerenciado por um funcionário específico
