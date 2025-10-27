@@ -11,7 +11,22 @@ O projeto implementa um sistema de banco de dados para gerenciar informações d
 - Relacionamentos entre funcionários e projetos
 - Dependentes dos funcionários
 
-## 🗂️ Estrutura do Banco de Dados
+## � Estrutura do Projeto
+
+```
+company/
+├── 📄 README.md                    # Documentação do projeto
+├── 🗃️ company.sql                 # Script original do banco
+├── ⚡ company-optimized.sql       # Script otimizado para VS Code
+├── 📊 company-er-diagram.mermaid  # Diagrama ER interativo
+├── 🐳 docker-compose.yml          # Ambiente Docker
+├── ⚙️ .vscode/
+│   └── settings.json              # Configurações VS Code
+├── 📋 sample-data.sql             # Dados de exemplo
+└── 🚫 .gitignore                  # Arquivos ignorados
+```
+
+## �🗂️ Estrutura do Banco de Dados
 
 ### Tabelas Principais
 
@@ -87,20 +102,61 @@ Tabela de relacionamento entre funcionários e projetos:
 
 ## 🚀 Como Executar
 
+### 🛠️ **Opção 1: MySQL Workbench (Tradicional)**
+
 1. **Pré-requisitos:**
    - MySQL Server instalado
-   - Cliente MySQL (MySQL Workbench, phpMyAdmin, ou linha de comando)
+   - MySQL Workbench
 
-2. **Executar o script:**
+2. **Executar:**
+   - Abrir MySQL Workbench
+   - Conectar ao servidor MySQL
+   - Abrir o arquivo `company.sql`
+   - Executar o script (Ctrl+Shift+Enter)
+
+### 💻 **Opção 2: VS Code (Recomendado)**
+
+1. **Instalar extensões:**
    ```bash
-   mysql -u username -p < company.sql
+   # SQLTools (base)
+   ext install mtxr.sqltools
+   
+   # Driver MySQL
+   ext install mtxr.sqltools-driver-mysql
    ```
 
-3. **Verificar criação:**
-   ```sql
-   USE company;
-   SHOW TABLES;
+2. **Configurar conexão:**
+   - `Cmd+Shift+P` → "SQLTools: Add New Connection"
+   - Escolher MySQL e configurar credenciais
+
+3. **Executar script:**
+   - Abrir `company-optimized.sql`
+   - `Cmd+Shift+P` → "SQLTools: Run Current File"
+
+### 🐳 **Opção 3: Docker (Ambiente Isolado)**
+
+1. **Usar Docker Compose:**
+   ```bash
+   docker-compose up -d
    ```
+
+2. **Executar script:**
+   ```bash
+   docker exec -i mysql-company mysql -u root -p company < company.sql
+   ```
+
+### ⌨️ **Opção 4: Terminal**
+
+```bash
+# Conectar ao MySQL
+mysql -u username -p
+
+# Executar script
+source company.sql
+
+# Ou diretamente
+mysql -u username -p < company.sql
+```
 
 ## 📊 Modelo Entidade-Relacionamento (ER)
 
@@ -112,6 +168,43 @@ O banco de dados segue um modelo relacional clássico com as seguintes relaçõe
 - **Employee** ↔ **Project** (N:M através de works_on)
 - **Employee** → **Dependent** (1:N)
 - **Department** → **Dep_locations** (1:N)
+
+## 🛠️ Extensões Recomendadas para VS Code
+
+### ⚡ **SQLTools** (Essencial)
+```bash
+# Extensão principal
+ext install mtxr.sqltools
+
+# Driver MySQL
+ext install mtxr.sqltools-driver-mysql
+```
+
+**Recursos:**
+- ✅ IntelliSense e autocomplete SQL
+- ✅ Execução de queries
+- ✅ Explorador de schema
+- ✅ Histórico de comandos
+- ✅ Export de resultados
+
+### 🎨 **Extensões Complementares**
+```bash
+# Mermaid para diagramas
+ext install bierner.markdown-mermaid
+
+# Temas SQL
+ext install ms-vscode.vscode-json
+
+# Formatação SQL
+ext install bradymholt.pgformatter
+```
+
+### ⚙️ **Configuração Automática**
+O projeto já inclui `.vscode/settings.json` com:
+- Conexões MySQL pré-configuradas
+- Formatação de código SQL
+- IntelliSense otimizado
+- Temas e associações de arquivo
 
 ## 🎯 Objetivos de Aprendizagem
 

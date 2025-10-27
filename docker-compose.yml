@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  # 🐳 MySQL Database Server
+  mysql-company:
+    image: mysql:8.0
+    container_name: mysql-company
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: company123
+      MYSQL_DATABASE: company
+      MYSQL_USER: company_user
+      MYSQL_PASSWORD: company_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./company-optimized.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./sample-data.sql:/docker-entrypoint-initdb.d/02-data.sql
+    networks:
+      - company-network
+
+  # 🌐 phpMyAdmin (Opcional - Interface Web)
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin-company
+    restart: always
+    depends_on:
+      - mysql-company
+    environment:
+      PMA_HOST: mysql-company
+      PMA_PORT: 3306
+      PMA_USER: company_user
+      PMA_PASSWORD: company_pass
+    ports:
+      - "8080:80"
+    networks:
+      - company-network
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  company-network:
+    driver: bridge
+
+# ==============================================
+# 🚀 COMO USAR:
+# ==============================================
+#
+# 1. Iniciar ambiente:
+#    docker-compose up -d
+#
+# 2. Acessar MySQL:
+#    mysql -h localhost -P 3306 -u company_user -p
+#    (senha: company_pass)
+#
+# 3. Acessar phpMyAdmin:
+#    http://localhost:8080
+#    (usuário: company_user, senha: company_pass)
+#
+# 4. Parar ambiente:
+#    docker-compose down
+#
+# 5. Parar e limpar dados:
+#    docker-compose down -v
+#
+# ==============================================
