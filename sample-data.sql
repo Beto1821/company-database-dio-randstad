@@ -11,9 +11,9 @@ USE company;
 -- ==============================================
 
 INSERT INTO departament (Dname, Dnumber, Mgr_start_date, Dept_create_date) VALUES
-('Research', 5, '1988-05-22', '1986-01-01'),
-('Administration', 4, '1995-01-01', '1990-06-15'),
-('Headquarters', 1, '1981-06-19', '1980-01-01'),
+('Research', 5, '1988-05-22', '1988-01-01'),
+('Administration', 4, '1995-01-01', '1994-06-15'),
+('Headquarters', 1, '1981-06-19', '1981-01-01'),
 ('Software', 6, '2000-03-15', '1999-08-01'),
 ('Hardware', 7, '2005-09-01', '2004-12-01');
 
@@ -97,15 +97,15 @@ INSERT INTO works_on (Essn, Pno, Hours) VALUES
 -- 👨‍👩‍👧‍👦 INSERIR DEPENDENTES
 -- ==============================================
 
-INSERT INTO dependent (Essn, Dependent_name, Sex, Bdate, Relationship) VALUES
-('333445555', 'Alice', 'F', '1986-04-04', 'Daughter'),
-('333445555', 'Theodore', 'M', '1983-10-25', 'Son'),
-('333445555', 'Joy', 'F', '1958-05-03', 'Spouse'),
-('987654321', 'Abner', 'M', '1942-02-28', 'Spouse'),
-('123456789', 'Michael', 'M', '1988-01-04', 'Son'),
-('123456789', 'Alice', 'F', '1988-12-30', 'Daughter'),
-('123456789', 'Elizabeth', 'F', '1967-05-05', 'Spouse'),
-('888665555', 'Catherine', 'F', '1960-04-05', 'Spouse');
+INSERT INTO dependent (Essn, Dependent_name, Sex, Bdate, Relationship, Age) VALUES
+('333445555', 'Alice', 'F', '1986-04-04', 'Daughter', 19),
+('333445555', 'Theodore', 'M', '1983-10-25', 'Son', 21),
+('333445555', 'Joy', 'F', '1958-05-03', 'Spouse', 20),
+('987654321', 'Abner', 'M', '1942-02-28', 'Spouse', 18),
+('123456789', 'Michael', 'M', '1988-01-04', 'Son', 17),
+('123456789', 'Alice', 'F', '1988-12-30', 'Daughter', 16),
+('123456789', 'Elizabeth', 'F', '1967-05-05', 'Spouse', 21),
+('888665555', 'Catherine', 'F', '1960-04-05', 'Spouse', 19);
 
 -- ==============================================
 -- ✅ VERIFICAÇÕES E RELATÓRIOS

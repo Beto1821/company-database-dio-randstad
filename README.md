@@ -76,6 +76,7 @@ Tabela de relacionamento entre funcionários e projetos:
 - Sex: Sexo (char)
 - Bdate: Data de nascimento (date)
 - Relationship: Relacionamento (varchar(8))
+- Age: Idade do dependente (int) - deve ser < 22
 ```
 
 #### 6. **dep_locations** (Localizações dos Departamentos)

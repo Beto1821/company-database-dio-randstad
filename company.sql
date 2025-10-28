@@ -30,11 +30,12 @@ create table employee(
 	constraint pk_employee primary key (Ssn)
 );
 
-alter table employee
-	add constraint fk_employee
-    foreign key(Super_ssn) references employee(Ssn)
-    on delete set null
-    on update cascade;
+
+-- alter table employee
+-- 	add constraint fk_employee
+--     foreign key(Super_ssn) references employee(Ssn)
+--     on delete set null
+--     on update cascade;
 
 create table departament(
 	Dname varchar(15) NOT NULL UNIQUE,
@@ -81,7 +82,7 @@ create table dependent(
     Dependent_name varchar(15) NOT NULL,
     Sex char,
     Bdate date,
-    Relatinship varchar(8),
+    Relationship varchar(8),
     Age int not null,
     constraint chk_age_dependent check(Age < 22),
     primary key(Essn, Dependent_name),
