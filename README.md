@@ -207,6 +207,73 @@ O projeto já inclui `.vscode/settings.json` com:
 - IntelliSense otimizado
 - Temas e associações de arquivo
 
+## 📊 Dados de Exemplo
+
+O projeto inclui o arquivo `sample-data.sql` com dados completos para testar o banco de dados:
+
+### 👥 **Funcionários (8 registros)**
+- **Gerentes**: James Borg (CEO), Franklin Wong (Research), Jennifer Wallace (Administration)
+- **Funcionários**: Ramesh Narayan, Joyce English, Ahmad Jabbar, Alicia Zelaya, John Smith
+
+### 🏢 **Departamentos (5 registros)**
+- Research, Administration, Headquarters, Software, Hardware
+- Cada departamento tem gerente e datas válidas
+
+### 🚀 **Projetos (9 registros)**
+- ProductX, ProductY, ProductZ (Research)
+- Computerization, Newbenefits (Administration) 
+- Reorganization (Headquarters)
+- OperatingSystem, DatabaseSystem (Software)
+- MobileApp (Hardware)
+
+### 💼 **Alocações works_on (19 registros)**
+
+**Como popular a tabela works_on:**
+
+```sql
+INSERT INTO works_on (Essn, Pno, Hours) VALUES
+('123456789', 1, 32.5),    -- John Smith: 32.5h no ProductX
+('123456789', 2, 7.5),     -- John Smith: 7.5h no ProductY
+('666884444', 3, 40.0),    -- Ramesh: 40h no ProductZ
+('453453453', 1, 20.0),    -- Joyce: 20h no ProductX
+('333445555', 2, 10.0),    -- Franklin: 10h no ProductY
+-- ... mais registros
+```
+
+**Regras importantes:**
+- ✅ **SSN** deve existir na tabela `employee`
+- ✅ **Projeto** deve existir na tabela `project`
+- ✅ **Horas** devem ser > 0 (máximo 40h se houver constraint)
+- ✅ **Combinação (Essn, Pno)** deve ser única
+
+### 👨‍👩‍👧‍👦 **Dependentes (8 registros)**
+- Inclui cônjuges, filhos e filhas dos funcionários
+- Coluna `Age` com valores < 22 (conforme constraint)
+- Dados realistas com relacionamentos familiares
+
+### 🔍 **Consultas Úteis**
+
+```sql
+-- Funcionários e seus projetos
+SELECT 
+    CONCAT(e.fname, ' ', e.Lname) as Funcionario,
+    p.Pname as Projeto,
+    w.Hours as Horas
+FROM works_on w
+JOIN employee e ON w.Essn = e.Ssn
+JOIN project p ON w.Pno = p.Pnumber
+ORDER BY e.fname;
+
+-- Total de horas por funcionário  
+SELECT 
+    CONCAT(e.fname, ' ', e.Lname) as Funcionario,
+    SUM(w.Hours) as Total_Horas
+FROM works_on w
+JOIN employee e ON w.Essn = e.Ssn
+GROUP BY e.Ssn
+ORDER BY SUM(w.Hours) DESC;
+```
+
 ## 🎯 Objetivos de Aprendizagem
 
 Este projeto demonstra conhecimentos em:
